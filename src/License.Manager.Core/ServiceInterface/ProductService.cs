@@ -67,7 +67,7 @@ namespace License.Manager.Core.ServiceInterface
             documentSession.SaveChanges();
 
             return
-                new HttpResult(new ProductDto().PopulateWith(product))
+                new HttpResult(new ProductDto().PopulateWith(product).PopulatePublicKey(product.KeyPair.PublicKey))
                     {
                         StatusCode = HttpStatusCode.Created,
                         Headers =
@@ -103,7 +103,7 @@ namespace License.Manager.Core.ServiceInterface
             documentSession.Store(product);
             documentSession.SaveChanges();
 
-            return new ProductDto().PopulateWith(product);
+            return new ProductDto().PopulateWith(product).PopulatePublicKey(product.KeyPair.PublicKey);
         }
 
         public object Delete(UpdateProduct request)
@@ -128,7 +128,7 @@ namespace License.Manager.Core.ServiceInterface
             if (product == null)
                 HttpError.NotFound("Product not found!");
 
-            return new ProductDto().PopulateWith(product);
+            return new ProductDto().PopulateWith(product).PopulatePublicKey(product.KeyPair.PublicKey);
         }
 
         public object Get(FindProducts request)
@@ -147,8 +147,7 @@ namespace License.Manager.Core.ServiceInterface
 
             var result = new List<ProductDto>(products.Count);
             result.AddRange(
-                products.Select(
-                    product => new ProductDto().PopulateWith(product)));
+                products.Select(product => new ProductDto().PopulateWith(product).PopulatePublicKey(product.KeyPair.PublicKey)));
 
             return result;
         }

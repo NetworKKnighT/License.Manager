@@ -38,5 +38,12 @@ namespace License.Manager.Core.ServiceModel
         //public int NumberOfCustomers { get; set; }
 
         public List<string> ProductFeatures { get; set; }
+        public string PublicKey { get; set; }
+
+        public ProductDto PopulatePublicKey(string publicKey)
+        {
+            PublicKey = publicKey;
+            return this;
+        }
     }
 }

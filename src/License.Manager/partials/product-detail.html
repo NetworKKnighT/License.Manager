@@ -31,7 +31,13 @@
                             </div>
                         </li>
                     </ul>
+                </div>
+            </div>
 
+            <div class="control-group" ng-class="{ error: EditProductForm.PublicKey.$invalid }">
+                <label class="control-label" for="PublicKey">PublicKey</label>
+                <div class="controls">
+                    <input type="text" id="PublicKey" class="input-large" ng-model="product.publicKey">
                 </div>
             </div>
 
