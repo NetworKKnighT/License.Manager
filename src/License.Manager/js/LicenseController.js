@@ -173,7 +173,7 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
         productId: '',
         customerId: '',
         productFeatures: [],
-        additionalAttributes: []
+        additionalAttributes: [{ "Key": "Registration Key", "Value": undefined }]
     };
     $scope.license = angular.copy($scope.emptyModel);
 
