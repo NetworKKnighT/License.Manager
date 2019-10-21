@@ -34,8 +34,9 @@ namespace License.Manager.Core.Validation
         public CreateLicenseValidator()
         {
             RuleFor(l => l.LicenseType).NotNull();
-            RuleFor(l => l.Quantity).GreaterThanOrEqualTo(1);
+            RuleFor(l => l.Quantity).GreaterThanOrEqualTo(0);
             RuleFor(l => l.Expiration).GreaterThan(DateTime.UtcNow);
+            RuleFor(l => l.Expiration).NotNull().GreaterThan(DateTime.UtcNow).When(l => l.LicenseType == Portable.Licensing.LicenseType.Trial);
             RuleFor(l => l.CustomerId).GreaterThan(0);
             RuleFor(l => l.ProductId).GreaterThan(0);
         }

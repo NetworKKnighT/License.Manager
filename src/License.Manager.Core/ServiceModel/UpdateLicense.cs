@@ -38,7 +38,7 @@ namespace License.Manager.Core.ServiceModel
         public int Id { get; set; }
         public LicenseType LicenseType { get; set; }
         public int Quantity { get; set; }
-        public DateTime Expiration { get; set; }
+        public DateTime? Expiration { get; set; }
         public int CustomerId { get; set; }
         public int ProductId { get; set; }
         public Dictionary<string, string> ProductFeatures { get; set; }

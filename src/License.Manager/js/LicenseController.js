@@ -101,6 +101,10 @@ function LicenseDetailsCtrl($scope, $location, $routeParams, $log, $http, Licens
             $scope.notificationAlert.message = error.data.responseStatus.message;
         });
 
+    $scope.isUsingExpirationDate = function() {
+        return $scope.license.licenseType === 'Trial';
+    }
+
     $scope.addProductFeature = function () {
         $scope.license.productFeatures.push({ "Key": "", "Value": "Product Feature Value" });
     };
@@ -125,6 +129,9 @@ function LicenseDetailsCtrl($scope, $location, $routeParams, $log, $http, Licens
         updateData.product = undefined;
         updateData.customerId = license.customer.id;
         updateData.customer = undefined;
+
+        if (!$scope.isUsingExpirationDate())
+            updateData.expiration = undefined;
 
         updateData.productFeatures = toDictionary(license.productFeatures);
         updateData.additionalAttributes = toDictionary(license.additionalAttributes);
@@ -208,6 +215,10 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
         $scope.license.additionalAttributes.splice(index, 1);
     };
 
+    $scope.isUsingExpirationDate = function() {
+        return $scope.license.licenseType === 'Trial';
+    };
+
     $scope.$watch('license.productId', function (newValue, oldValue) {
         
         if (angular.isUndefined(newValue) || newValue < 1)
@@ -244,6 +255,9 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
         var lic = new License(newLicense);
         lic.productFeatures = toDictionary(newLicense.productFeatures);
         lic.additionalAttributes = toDictionary(newLicense.additionalAttributes);
+
+        if (!$scope.isUsingExpirationDate())
+            lic.expiration = undefined;
 
         lic.$save({},
             function (success, getResponseHeaders) {

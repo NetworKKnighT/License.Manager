@@ -76,22 +76,28 @@ namespace License.Manager.Core.ServiceInterface
             var customer = documentSession.Load<Customer>(license.CustomerId);
             var product = documentSession.Load<Product>(license.ProductId);
 
-            var licenseFile =
-                Portable.Licensing.License.New()
-                        .WithUniqueIdentifier(license.LicenseId)
-                        .As(license.LicenseType)
-                        .WithMaximumUtilization(license.Quantity)
-                        .ExpiresAt(license.Expiration)
-                        .LicensedTo(c =>
-                                        {
-                                            c.Name = customer.Name;
-                                            c.Email = customer.Email;
-                                            c.Company = customer.Company;
-                                        })
-                        .WithProductFeatures(license.ProductFeatures)
-                        .WithAdditionalAttributes(license.AdditionalAttributes)
-                        .CreateAndSignWithPrivateKey(product.KeyPair.EncryptedPrivateKey,
-                                                     machineKeySection.DecryptionKey);
+            var licenseBuilder = Portable.Licensing.License.New().As(license.LicenseType);
+
+            if (license.LicenseType == Portable.Licensing.LicenseType.Trial && license.Expiration != null)
+            {
+                licenseBuilder.ExpiresAt(license.Expiration.Value);
+            }
+
+            if (license.Quantity > 0)
+            {
+                licenseBuilder.WithMaximumUtilization(license.Quantity);
+            }
+
+            var licenseFile = licenseBuilder.LicensedTo(c =>
+                                             {
+                                                 c.Name = customer.Name;
+                                                 c.Email = customer.Email;
+                                                 c.Company = customer.Company;
+                                             })
+                                             .WithProductFeatures(license.ProductFeatures)
+                                             .WithAdditionalAttributes(license.AdditionalAttributes)
+                                             .CreateAndSignWithPrivateKey(product.KeyPair.EncryptedPrivateKey, machineKeySection.DecryptionKey);
+
 
             var issueToken = Guid.NewGuid();
             cacheClient.Set(UrnId.Create<Model.License>("IssueToken", issueToken.ToString()), licenseFile, new TimeSpan(0, 5, 0));
@@ -127,6 +133,8 @@ namespace License.Manager.Core.ServiceInterface
         {
             var license = new Model.License().PopulateWith(request);
 
+            license.LastModified = license.Created = DateTime.Now;
+
             documentSession.Store(license);
             documentSession.SaveChanges();
 
@@ -157,6 +165,8 @@ namespace License.Manager.Core.ServiceInterface
                 HttpError.NotFound("License not found!");
 
             license.PopulateWith(request);
+
+            license.LastModified = DateTime.Now;
 
             documentSession.Store(license);
             documentSession.SaveChanges();

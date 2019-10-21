@@ -35,7 +35,7 @@ namespace License.Manager.Core.ServiceModel
         public Guid LicenseId { get; set; }
         public Portable.Licensing.LicenseType LicenseType { get; set; }
         public int Quantity { get; set; }
-        public DateTime Expiration { get; set; }
+        public DateTime? Expiration { get; set; }
         public Customer Customer { get; set; }
         public ProductDto Product { get; set; }
         public Dictionary<string, string> ProductFeatures { get; set; }
