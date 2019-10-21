@@ -80,6 +80,10 @@ function ProductDetailsCtrl($scope, $routeParams, Product) {
                 $scope.notificationAlert.message = error.data.responseStatus.message;
             });
     };
+
+    $scope.cancel = function () {
+        window.history.back();
+    };
 }
 
 //ProductDetailsCtrl.$inject = ['$scope', '$routeParams', 'Product'];
@@ -120,7 +124,8 @@ function ProductAddCtrl($scope, $location, Product) {
     };
 
     $scope.cancel = function() {
-        $scope.product = angular.copy($scope.emptyModel);
+        //$scope.product = angular.copy($scope.emptyModel);
+        window.history.back();
     };
 }
 

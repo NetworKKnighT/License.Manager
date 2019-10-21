@@ -162,6 +162,10 @@ function LicenseDetailsCtrl($scope, $location, $routeParams, $log, $http, Licens
                 $scope.notificationAlert.message = error.data.responseStatus.message;
             });
     };
+
+    $scope.cancel = function () {
+        window.history.back();
+    };
 }
 
 //LicenseDetailsCtrl.$inject = ['$scope', '$routeParams', 'License'];
@@ -275,7 +279,9 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
     };
 
     $scope.cancel = function () {
-        $scope.license = angular.copy($scope.emptyModel);
+        //$scope.license = angular.copy($scope.emptyModel);
+        window.history.back();
+    };
     };
 }
 

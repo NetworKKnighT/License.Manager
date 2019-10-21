@@ -66,6 +66,10 @@ function CustomerDetailsCtrl($scope, $routeParams, Customer) {
                 $scope.notificationAlert.message = error.data.responseStatus.message;
             });
     };
+
+    $scope.cancel = function () {
+        window.history.back();
+    };
 }
 
 //CustomerDetailsCtrl.$inject = ['$scope', '$routeParams', 'Customer'];
@@ -94,7 +98,8 @@ function CustomerAddCtrl($scope, $location, Customer) {
     };
 
     $scope.cancel = function() {
-        $scope.customer = angular.copy($scope.emptyModel);
+        //$scope.customer = angular.copy($scope.emptyModel);
+        window.history.back();
     };
 }
 
