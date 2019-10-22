@@ -49,6 +49,7 @@
                 Remember me
             </label>
             <button class="btn btn-large btn-primary" type="submit" ng-click="login(authData)" ng-disabled="AuthForm.$invalid">Sign in</button>
+            <!--
             <hr />
             <h4>Or, sign in with:</h4>
             <a href="" ng-click="signInWithGoogle()">
@@ -61,6 +62,7 @@
             <h4>Or, manually enter your OpenID:</h4>
             <input name="OpenIdUrl" type="text" class="input-block-level" placeholder="http://myopenid.com/" ng-model="authData.openIdUrl">
             <button class="btn btn-large btn-primary" type="button" ng-click="signInWithOpenId(authData.openIdUrl)" ng-disabled="authData.openIdUrl == ''">Sign in with OpenId</button>
+            -->
         </form>
     </div>
 </body>
