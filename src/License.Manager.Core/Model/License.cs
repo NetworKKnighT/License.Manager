@@ -39,5 +39,8 @@ namespace License.Manager.Core.Model
         public int ProductId { get; set; }
         public Dictionary<string, string> ProductFeatures { get; set; }
         public Dictionary<string, string> AdditionalAttributes { get; set; }
+        public string Description { get; set; }
+        public DateTime? Created { get; set; }
+        public DateTime? LastModified { get; set; }
     }
 }

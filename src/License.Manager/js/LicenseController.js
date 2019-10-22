@@ -166,6 +166,14 @@ function LicenseDetailsCtrl($scope, $location, $routeParams, $log, $http, Licens
     $scope.cancel = function () {
         window.history.back();
     };
+
+    $scope.doesCreatedDateExist = function () {
+        return $scope.license.created !== undefined;
+    };
+
+    $scope.doesLastModifiedDateExist = function () {
+        return $scope.license.lastModified !== undefined;
+    };
 }
 
 //LicenseDetailsCtrl.$inject = ['$scope', '$routeParams', 'License'];
@@ -265,6 +273,9 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
 
         lic.$save({},
             function (success, getResponseHeaders) {
+                $scope.license.created = success.created;
+                $scope.license.lastModified = success.lastModified;
+
                 $scope.notificationAlert.show = true;
                 $scope.notificationAlert.type = 'success';
                 $scope.notificationAlert.message = 'Successfuly created!';
@@ -282,6 +293,13 @@ function LicenseAddCtrl($scope, $location, $routeParams, $log, $http, License, C
         //$scope.license = angular.copy($scope.emptyModel);
         window.history.back();
     };
+
+    $scope.doesCreatedDateExist = function () {
+        return $scope.license.created !== undefined;
+    };
+
+    $scope.doesLastModifiedDateExist = function () {
+        return $scope.license.lastModified !== undefined;
     };
 }
 

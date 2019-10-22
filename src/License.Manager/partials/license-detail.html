@@ -76,6 +76,27 @@
                 </div>
             </div>
 
+            <div class="control-group" ng-class="{ error: AddLicenseForm.Description.$invalid }">
+                <label class="control-label" for="Description">Description</label>
+                <div class="controls">
+                    <textarea class="span5" name="Description" ng-model="license.description" placeholder="The license's description..."></textarea>
+                </div>
+            </div>
+
+            <div class="control-group" ng-show="doesCreatedDateExist()">
+                <label class="control-label">Creation Date</label>
+                <div class="controls">
+                    <span class="uneditable-input span2">{{license.created | date: 'dd.MM.yyyy HH:mm'}}</span>
+                </div>
+            </div>
+
+            <div class="control-group" ng-show="doesLastModifiedDateExist()">
+                <label class="control-label">Last modified Date</label>
+                <div class="controls">
+                    <span class="uneditable-input span2">{{license.lastModified | date: 'dd.MM.yyyy HH:mm'}}</span>
+                </div>
+            </div>
+
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary" ng-click="updateLicense(license)" ng-disabled="EditLicenseForm.$invalid">Save changes</button>
                 <button type="button" class="btn" ng-click="cancel()">Cancel</button>
