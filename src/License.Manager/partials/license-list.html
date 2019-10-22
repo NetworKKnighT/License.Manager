@@ -10,8 +10,9 @@
                 <th>Product</th>
                 <th>Holder</th>
                 <th>Type</th>
-                <th>Quantity</th>
+                <!--<th>Quantity</th>-->
                 <th>Expiration</th>
+                <th>Created</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -20,8 +21,9 @@
                 <td>{{lic.product.name}}</td>
                 <td>{{lic.customer.name}}</td>
                 <td>{{lic.licenseType}}</td>
-                <td>{{lic.quantity}}</td>
+                <!--<td>{{lic.quantity}}</td>-->
                 <td>{{lic.expiration | date:shortDate}}</td>
+                <td>{{lic.created | date:shortDate}}</td>
                 <td>
                     <a ng-href="{{licenseUrl}}/{{lic.id}}">Details</a>
                     <a ng-href="#" ng-click="issueLicense(lic)">Issue</a>
