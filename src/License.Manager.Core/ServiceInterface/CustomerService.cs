@@ -117,6 +117,7 @@ namespace License.Manager.Core.ServiceInterface
 
             return query
                 .OfType<Customer>()
+                .Take(int.MaxValue)
                 .ToList();
         }
     }

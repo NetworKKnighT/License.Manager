@@ -143,6 +143,7 @@ namespace License.Manager.Core.ServiceInterface
 
             var products = query
                 .OfType<Product>()
+                .Take(int.MaxValue)
                 .ToList();
 
             var result = new List<ProductDto>(products.Count);

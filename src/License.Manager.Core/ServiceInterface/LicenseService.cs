@@ -228,6 +228,7 @@ namespace License.Manager.Core.ServiceInterface
 
             var licenses = query
                 .OfType<Model.License>()
+                .Take(int.MaxValue)
                 .ToList();
 
             var result = new List<LicenseDto>(licenses.Count);
